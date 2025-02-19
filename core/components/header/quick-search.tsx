@@ -16,6 +16,8 @@ interface Image {
 
 interface SearchProps {
   logo: string | Image;
+  position?:string
+
 }
 
 type QuickSearchResults = ExistingResultType<typeof getSearchResults>;
@@ -28,7 +30,7 @@ const isSearchQuery = (data: unknown): data is QuickSearchResults => {
   return false;
 };
 
-export const QuickSearch = ({ logo }: SearchProps) => {
+export const QuickSearch = ({ logo, position='' }: SearchProps) => {
   const format = useFormatter();
 
   const fetchSearchResults = async (term: string) => {
@@ -82,5 +84,5 @@ export const QuickSearch = ({ logo }: SearchProps) => {
     return null;
   };
 
-  return <Search logo={logo} onSearch={fetchSearchResults} />;
+  return <Search logo={logo} position={position} sonSearch={fetchSearchResults} />;
 };

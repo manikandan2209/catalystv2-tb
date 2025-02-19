@@ -20,14 +20,14 @@ export const Input = forwardRef<ComponentRef<'input'>, Props>(
     return (
       <div className="relative">
         <input
-          className="peer w-full appearance-none border-2 border-gray-200 px-12 py-3 text-base placeholder:text-gray-500 hover:border-primary focus-visible:border-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 disabled:bg-gray-100 disabled:hover:border-gray-200"
+          className="peer w-full appearance-none border-2 border-gray-200 px-12 py-3 text-gray-600 placeholder:text-gray-500  disabled:bg-gray-100 disabled:hover:border-gray-200"
           ref={ref}
           type="text"
           {...props}
         />
         <span
-          aria-hidden="true"
-          className="pointer-events-none absolute start-3 top-0 flex h-full items-center peer-hover:text-primary peer-focus-visible:text-primary peer-disabled:text-gray-200"
+          aria-hidden="false"
+          className="pointer-events-none absolute start-3 top-0 flex h-full items-center text-primary peer-disabled:text-gray-200"
         >
           <Search />
         </span>

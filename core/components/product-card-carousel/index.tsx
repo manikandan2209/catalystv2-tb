@@ -13,7 +13,7 @@ export const ProductCardCarousel = ({
   showCart,
   showCompare,
 }: {
-  title: string;
+  title: string | null;
   products: Product[];
   showCart?: boolean;
   showCompare?: boolean;

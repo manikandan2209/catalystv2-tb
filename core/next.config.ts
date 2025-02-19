@@ -55,6 +55,18 @@ export default async (): Promise<NextConfig> => {
         },
       ];
     },
+    images: {
+      remotePatterns: [
+        {
+          protocol: "https", // or http
+          hostname: "seal-newjersey.bbb.org", // if your website has no www, drop it
+        },
+        {
+          protocol: "https", // or http
+          hostname: "cdn11.bigcommerce.com", // if your website has no www, drop it
+        }
+      ],
+    },
   };
 
   // Apply withNextIntl to the config

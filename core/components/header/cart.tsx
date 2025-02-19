@@ -7,8 +7,8 @@ import { Link } from '~/components/link';
 import { CartIcon } from './cart-icon';
 
 export const CartLink = ({ children }: { children: ReactNode }) => (
-  <Link className="relative flex justify-between p-3 font-semibold" href="/cart">
-    {children}
+  <Link className="relative " href="/cart">
+    {children} <span className='font-semibold text-base'>&nbsp;CART</span>
   </Link>
 );
 

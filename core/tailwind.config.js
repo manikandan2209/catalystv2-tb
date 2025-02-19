@@ -11,8 +11,10 @@ const config = {
         transparent: 'transparent',
         current: 'currentColor',
         black: '#000000',
-        primary: '#053FB0',
-        secondary: '#3071EF',
+        primary: '#1061a3',
+        secondary: '#287728',
+        button:'#4baf4d',
+        linkhover:'#757575',
         white: '#FFFFFF',
         error: {
           DEFAULT: '#AD0000',
@@ -22,20 +24,33 @@ const config = {
           DEFAULT: '#146622',
           secondary: '#388E3C',
         },
-        gray: {
-          100: '#F1F3F5',
-          200: '#CFD8DC',
-          300: '#AFBAC5',
-          400: '#90A4AE',
-          500: '#546E7A',
-          600: '#091D45',
+        container: {
+          padding: {
+            DEFAULT: '1rem'
+          }
         },
+        gray: {
+          100: '#f1f1f3',
+          200: '#e6e7e9',
+          300: '#a8a8a8',
+          400: '#bcbdbf',
+          500: '#797979',
+        },
+        green:{
+          400:'#4baf4d',
+          500:'#4eae4c',
+        },
+        footer:{
+          100:'#002b4d',
+          200:'#002039',
+        }
       },
       fontFamily: {
-        sans: ['var(--font-inter)'],
+        sans: ['var(--font-open-sans)'],
+        filson: ['var(--font-filson-pro)']
       },
       borderColor: {
-        DEFAULT: '#CFD8DC',
+        DEFAULT: '#bcbdbf',
       },
       keyframes: {
         revealVertical: {

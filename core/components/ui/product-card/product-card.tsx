@@ -24,6 +24,12 @@ type Price =
       maxValue: string;
     };
 
+type CustomFields = Array<{
+      entityId: number | null;
+      name: string | null;
+      value: string | null;
+  }> | null;
+
 interface Product {
   id: string;
   name: string;
@@ -40,6 +46,7 @@ interface Props extends Product {
   imagePriority?: boolean;
   imageSize?: 'square' | 'tall' | 'wide';
   showCompare?: boolean;
+  customFields?: CustomFields;
 }
 
 const ProductCard = ({
@@ -54,9 +61,10 @@ const ProductCard = ({
   showCompare = true,
   subtitle,
   name,
+  customFields,
   ...props
 }: Props) => (
-  <div className={cn('group relative flex flex-col overflow-visible', className)} {...props}>
+  <div className={cn('group relative flex flex-col overflow-visible border p-3 text-center', className)} {...props}>
     <div className="relative flex justify-center pb-3">
       <div
         className={cn('relative flex-auto', {
@@ -79,9 +87,9 @@ const ProductCard = ({
         )}
       </div>
     </div>
-    <div className={cn('flex flex-1 flex-col gap-1', Boolean(addToCart) && 'justify-end')}>
-      {subtitle ? <p className="text-base text-gray-500">{subtitle}</p> : null}
-      <h3 className="text-xl font-bold lg:text-2xl">
+    <div className={cn('flex flex-1 flex-col gap-1', Boolean(addToCart) && 'justify-start')}>
+      {/* {subtitle ? <p className="text-base text-gray-500">{subtitle}</p> : null} */}
+      <h3 className="font-filson text-xl text-primary font-bold lg:text-xl">
         <Link
           className="focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-primary/20 focus-visible:ring-0"
           href={href}
@@ -90,10 +98,10 @@ const ProductCard = ({
           {name}
         </Link>
       </h3>
-      <div className="flex flex-wrap items-end justify-between pt-1">
+      <div className="flex flex-wrap items-center justify-center text-center pt-1 font-semibold text-xl">
         {Boolean(price) &&
           (typeof price === 'object' ? (
-            <p className="flex flex-col gap-1">
+            <p className="w-auto shrink-0 font-semibold">
               {price.type === 'range' && (
                 <span>
                   {price.minValue} - {price.maxValue}
@@ -102,18 +110,23 @@ const ProductCard = ({
 
               {price.type === 'sale' && (
                 <>
-                  <span>
-                    Was: <span className="line-through">{price.previousValue}</span>
-                  </span>
-                  <span>Now: {price.currentValue}</span>
+                  <span className="line-through text-gray-300">{price.previousValue}</span>
+                  <span className='text-green-400'>{price.currentValue}</span>
                 </>
               )}
             </p>
           ) : (
-            <span>{price}</span>
+            <span className='text-green-400'>{price}</span>
           ))}
 
         {showCompare && <Compare id={id} image={image} name={name} />}
+        { Boolean(customFields) && customFields?.length !== undefined   && customFields.map((customField) => (
+            customField.name == 'Page Yield' &&
+              (<div key={customField.entityId}>
+                <h3 className="font-semibold">{customField.name}</h3>
+                <p>{customField.value}</p>
+              </div>)
+            ))}
       </div>
     </div>
     {addToCart}

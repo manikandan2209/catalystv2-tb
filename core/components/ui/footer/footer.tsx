@@ -55,8 +55,9 @@ const Footer = ({
   const t = useTranslations('Components.Footer');
 
   return (
+    <div className="bg-footer-100">
     <footer className={cn('2xl:container 2xl:mx-auto', className)} {...props}>
-      <section className="flex flex-col gap-8 border-t border-gray-200 px-4 py-10 sm:px-10 md:flex-row lg:gap-4 lg:px-12 2xl:px-0">
+      <section className="flex flex-col gap-8 py-10 md:flex-row lg:gap-4 text-white max-w-7xl mx-auto">
         <nav className="grid flex-auto auto-cols-fr gap-8 sm:grid-flow-col">
           {sections.map((section) => (
             <div key={section.title}>
@@ -132,14 +133,17 @@ const Footer = ({
         </div>
       </section>
 
-      <section className="hidden justify-between gap-8 border-t border-gray-200 px-4 py-6 sm:px-10 lg:flex lg:px-12 2xl:px-0">
-        <p className="text-gray-500 sm:order-first">{copyright}</p>
-        <div className="flex gap-8">
+      <section className="sm:py-6 text-white text-[12px] max-w-3xl mx-auto text-center">
+        <p className="text-white">{copyright}</p>
+        <p className="text-white">Brand names, images, and logos are solely for descriptive purposes. Trademarks and copyrights are the property of their respective owners, their use does not imply endorsement or association with the brand name owners.</p>
+
+        <div className="">
           <Locale />
-          <div className="flex gap-6">{paymentIcons}</div>
+          <div className="flex gap-6 items-center justify-center mt-2">{paymentIcons}</div>
         </div>
       </section>
     </footer>
+    </div>
   );
 };
 

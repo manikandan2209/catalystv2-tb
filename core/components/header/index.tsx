@@ -40,19 +40,11 @@ export const Header = async ({ cart }: Props) => {
    To show a full list of categories, modify the `slice` method to remove the limit.
    Will require modification of navigation menu styles to accommodate the additional categories.
    */
-  const categoryTree = data.categoryTree.slice(0, 6);
+  const categoryTree = data.categoryTree;
 
   const links = categoryTree.map(({ name, path, children }) => ({
     label: name,
     href: path,
-    groups: children.map((firstChild) => ({
-      label: firstChild.name,
-      href: firstChild.path,
-      links: firstChild.children.map((secondChild) => ({
-        label: secondChild.name,
-        href: secondChild.path,
-      })),
-    })),
   }));
 
   return (
@@ -86,7 +78,7 @@ export const Header = async ({ cart }: Props) => {
       }
       activeLocale={locale}
       cart={
-        <p role="status">
+        <p role="status" className='m-0'>
           <Suspense
             fallback={
               <CartLink>
@@ -101,6 +93,11 @@ export const Header = async ({ cart }: Props) => {
       links={links}
       locales={localeLanguageRegionMap}
       logo={data.settings ? logoTransformer(data.settings) : undefined}
+      contact={data.settings && data.settings.contact ? ( 
+        <Link href={"tel:"+data.settings.contact.phone}>
+          {data.settings.contact.phone}
+        </Link> ) : undefined } 
+      isCustomer = {customerAccessToken ? true : false}
       search={<QuickSearch logo={data.settings ? logoTransformer(data.settings) : ''} />}
     />
   );

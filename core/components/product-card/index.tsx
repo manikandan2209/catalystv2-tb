@@ -40,6 +40,7 @@ export const ProductCard = ({
       price={price}
       showCompare={showCompare}
       subtitle={brand?.name}
+      customFields={null}
     />
   );
 };

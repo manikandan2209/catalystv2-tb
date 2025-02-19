@@ -25,6 +25,11 @@ import { MastercardIcon } from './payment-icons/mastercard';
 import { PayPalIcon } from './payment-icons/paypal';
 import { VisaIcon } from './payment-icons/visa';
 
+import { TrustBadges } from './trust-badges';
+import Image from 'next/image';
+import { Subscribe } from './subscribe';
+import { imageManagerImageUrl } from '~/lib/store-assets';
+
 const socialIcons: Record<string, { icon: JSX.Element }> = {
   Facebook: { icon: <SiFacebook title="Facebook" /> },
   Twitter: { icon: <SiX title="Twitter" /> },
@@ -70,6 +75,16 @@ export const Footer = async () => {
   ];
 
   return (
+    <>
+    <TrustBadges />
+    <div className='flex bg-footer-200'>
+        <div className='container mx-auto py-5 flex items-center gap-5'>
+          <div>
+              <Image src="/images/tonerbuzz-logo-white.png"  width={153} height={62} alt='Tonerbuzz logo White'/>
+          </div>
+          <Subscribe />
+        </div>
+    </div>
     <ComponentsFooter
       contactInformation={data.settings?.contact ?? undefined}
       copyright={
@@ -94,5 +109,6 @@ export const Footer = async () => {
           icon: socialIcons[socialMediaLink.name]?.icon,
         }))}
     />
+    </>
   );
 };

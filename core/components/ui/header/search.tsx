@@ -47,10 +47,11 @@ interface SearchResults {
 interface Props {
   initialTerm?: string;
   logo: string | Image;
+  position?: string;
   onSearch: (term: string) => Promise<SearchResults | null>;
 }
 
-const Search = ({ initialTerm = '', logo, onSearch }: Props) => {
+const Search = ({ initialTerm = '', logo, position, onSearch }: Props) => {
   const [term, setTerm] = useState(initialTerm);
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
@@ -98,45 +99,10 @@ const Search = ({ initialTerm = '', logo, onSearch }: Props) => {
   };
 
   return (
-    <SheetPrimitive.Root onOpenChange={setOpen} open={open}>
-      <SheetPrimitive.Trigger asChild>
-        <Button
-          aria-label={t('openSearchPopup')}
-          className="border-0 bg-transparent p-3 text-black hover:bg-transparent hover:text-primary focus-visible:text-primary"
-        >
-          <SearchIcon />
-        </Button>
-      </SheetPrimitive.Trigger>
-      <SheetPrimitive.Overlay className="fixed inset-0 bg-transparent backdrop-blur-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
-        <SheetPrimitive.Portal>
-          <SheetPrimitive.Content
-            aria-describedby={undefined}
-            className={cn(
-              'fixed inset-x-0 top-0 items-center overflow-auto border-b bg-white px-4 shadow-lg transition ease-in-out data-[state=closed]:duration-0 data-[state=open]:duration-0 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top md:px-10 lg:px-12',
-              searchResults && searchResults.products.length > 0 && 'h-full lg:h-3/4',
-            )}
-          >
-            <SheetPrimitive.Title asChild>
-              <h2 className="sr-only">{t('searchBar')}</h2>
-            </SheetPrimitive.Title>
-
-            <div className="grid h-[92px] w-full grid-cols-5 items-center">
-              <div className="me-2 hidden lg:block lg:justify-self-start">
-                <CustomLink className="overflow-hidden text-ellipsis py-3" href="/">
-                  {typeof logo === 'object' ? (
-                    <Image
-                      alt={logo.altText}
-                      className="max-h-16 object-contain"
-                      height={32}
-                      priority
-                      src={logo.src}
-                      width={155}
-                    />
-                  ) : (
-                    <span className="truncate text-2xl font-black">{logo}</span>
-                  )}
-                </CustomLink>
-              </div>
+    <>
+             <div className='flex col-span-5 items-center'>
+            { position != 'main-banner' && <div className='text-white text-xl font-semibold pr-4'>Search for Toner & Ink</div> }
+            <div className='relative grow'>
               <Form.Root
                 action="/search"
                 className="col-span-4 flex lg:col-span-3"
@@ -160,18 +126,9 @@ const Search = ({ initialTerm = '', logo, onSearch }: Props) => {
                   </Form.Control>
                 </Form.Field>
               </Form.Root>
-              <SheetPrimitive.Close asChild>
-                <Button
-                  aria-label={t('closeSearchPopup')}
-                  className="w-auto justify-self-end border-0 bg-transparent p-2.5 text-black hover:bg-transparent hover:text-primary focus-visible:text-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 peer-hover:text-primary peer-focus-visible:text-primary"
-                >
-                  <small className="me-2 hidden text-base md:inline-flex">Close</small>
-                  <X />
-                </Button>
-              </SheetPrimitive.Close>
             </div>
             {searchResults && searchResults.products.length > 0 && (
-              <div className="mt-8 grid overflow-auto px-1 lg:grid-cols-3 lg:gap-6">
+              <div className="absolute mt-8 grid overflow-auto px-1 lg:grid-cols-3 lg:gap-6">
                 <section aria-label={t('categories')}>
                   <h3 className="mb-6 border-b border-gray-200 pb-3 text-xl font-bold lg:text-2xl">
                     {t('categories')}
@@ -274,10 +231,8 @@ const Search = ({ initialTerm = '', logo, onSearch }: Props) => {
             {searchResults && searchResults.products.length === 0 && (
               <p className="p-6">{t('noSearchResults', { term })}</p>
             )}
-          </SheetPrimitive.Content>
-        </SheetPrimitive.Portal>
-      </SheetPrimitive.Overlay>
-    </SheetPrimitive.Root>
+        </div>  
+    </>
   );
 };
 

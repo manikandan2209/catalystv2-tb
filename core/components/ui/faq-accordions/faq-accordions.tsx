@@ -21,19 +21,19 @@ type Props =
       type: 'multiple';
     };
 
-const Accordions = ({ accordions, ...props }: Props) => {
+const FaqAccordions = ({ accordions, ...props }: Props) => {
   return (
     <AccordionPrimitive.Root {...props}>
       {accordions.map((accordion, i) => (
         <AccordionPrimitive.Item key={i} value={accordion.title}>
-          <AccordionPrimitive.Header className="flex">
-            <AccordionPrimitive.Trigger className="flex flex-1 items-center justify-between py-[9.5px] text-lg font-bold outline-none transition-all hover:text-secondary focus-visible:text-secondary [&[data-state=open]>svg]:rotate-180">
+          <AccordionPrimitive.Header className="flex pb-5">
+            <AccordionPrimitive.Trigger className="flex flex-1 items-center justify-between py-[9.5px] bg-[#e6e6e6] p-4 rounded-lg transition-all [&[data-state=open]>svg]:rotate-180">
               {accordion.title}
               <ChevronDown className="h-6 w-6 shrink-0 transition-transform duration-200" />
             </AccordionPrimitive.Trigger>
           </AccordionPrimitive.Header>
-          <AccordionPrimitive.Content className="data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down mb-4 overflow-hidden transition-all">
-           { accordion.content && <div  dangerouslySetInnerHTML={{__html: accordion.content }} /> }
+          <AccordionPrimitive.Content className="faq-accordian-content data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down mb-4 overflow-hidden transition-all ">
+           { accordion.content && <div className='p-5' dangerouslySetInnerHTML={{__html: accordion.content }} /> }
           </AccordionPrimitive.Content>
         </AccordionPrimitive.Item>
       ))}
@@ -41,4 +41,4 @@ const Accordions = ({ accordions, ...props }: Props) => {
   );
 };
 
-export { Accordions };
+export { FaqAccordions };

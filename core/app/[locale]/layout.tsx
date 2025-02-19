@@ -1,7 +1,9 @@
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Open_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
+// import { Inter } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { PropsWithChildren } from 'react';
@@ -15,11 +17,32 @@ import { revalidate } from '~/client/revalidate-target';
 import { Notifications } from '../notifications';
 import { Providers } from '../providers';
 
-const inter = Inter({
+const openSans = Open_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-open-sans',
+  preload: true
 });
+
+const filsonPro = localFont({
+  src: [{
+    path: '../fonts/FilsonPro-Regular.ttf',
+    weight: '400',
+    style: 'normal',
+  },{
+    path: '../fonts/FilsonPro-Bold.ttf',
+    weight: '600',
+    style: 'normal',
+  }],
+  display: 'swap',
+  variable: '--font-filson-pro'
+});
+
+// const inter = Inter({
+//   subsets: ['latin'],
+//   display: 'swap',
+//   variable: '--font-inter',
+// });
 
 const RootLayoutMetadataQuery = graphql(`
   query RootLayoutMetadataQuery {
@@ -94,7 +117,7 @@ export default async function RootLayout({ params, children }: Props) {
   const messages = await getMessages();
 
   return (
-    <html className={`${inter.variable} font-sans`} lang={locale}>
+    <html className={`${filsonPro.variable} ${openSans.variable} font-sans`} lang={locale}>
       <body className="flex h-screen min-w-[375px] flex-col">
         <Notifications />
         <NextIntlClientProvider locale={locale} messages={messages}>
